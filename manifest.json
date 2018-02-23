@@ -1,0 +1,63 @@
+{
+	"jpsType": "update",
+	"jpsVersion": "0.3",
+	"application": {
+		"id": "supervisord",
+		"name": "Supervisor for PHP",
+		"version": "3.1.3",
+		"type": "php",
+		"targetNodes": {
+			"nodeType": ["apache2", "nginxphp", "apache", "nginx-ruby", "apache2-ruby","nginxphp-dockerized"]
+		},
+		"homepage": "http://supervisord.org/",
+		"logo": "http://jps.layershift.com/supervisord/supervisor.png",
+		"description": {
+			"en": "Supervisord starts processes as its subprocesses, and can be configured to automatically restart them on a crash. It can also automatically be configured to start processes on its own invocation."
+		},
+		"onInstall": {
+			"call": [
+					"installSupervisor"
+			]
+		},
+		"onUninstall": {
+			"call": "removeSupervisor"
+		},
+		"procedures": [{
+				"id": "installSupervisor",
+				"onCall": [{
+						"executeShellCommands": [{
+								"nodeMission": "cp",
+								"user": "root",
+								"commands": [
+										"if [ -f /etc/yum.repos.d/mod-pagespeed.repo ]; then sed -i \"s/enabled=1/enabled=0/g\"; else echo \"n\" > /root/installation; fi",
+										"yum install --nogpgcheck -q -y python-setuptools.noarch 2>&1",
+										"easy_install -q supervisor 2>&1"
+								]
+							}
+						]
+					}
+				]
+			}, {
+				"id": "removeSupervisor",
+				"onCall": [{
+						"executeShellCommands": [{
+								"nodeMission": "cp",
+								"user": "root",
+								"commands": [
+										"if [ -f /tmp/supervisord.pid ]; then kill -9 `cat /tmp/supervisord.pid`; else echo \"done\"; fi 2>&1",
+										"rm -rf /usr/lib/python*/site-packages/supervisor* 2>&1",
+										"rm -f /usr/bin/echo_supervisord_conf /usr/bin/pidproxy /usr/bin/supervisorctl /usr/bin/supervisord 2>&1"
+								]
+							}
+						]
+					}
+				]
+			}
+		],
+		"success": {
+			"text": {
+				"en": "Supervisor has been successfully installed.<br /> To run supervisor instance, access your node via <a href='http://kb.layershift.com/jelastic-ssh-access'>SSH</a>. Create an example config file with:<br /><pre>cd ~/; echo_supervisord_conf > supervisord.conf</pre><br />Run your supervisor with<br /><pre>supervisord -c /path/to/supervisord.conf</pre><br />Where <b>/path/to/supervisord.conf</b> is a full path to the configuration file you've just created.<br /><br />More examples and detailed documentation can be found at <a href='http://supervisord.org/'>http://supervisord.org/</a>."
+			}
+		}
+	}
+}
