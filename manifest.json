@@ -22,6 +22,9 @@
 		"onUninstall": {
 			"call": "removeSupervisor"
 		},
+        "onAfterRedeployContainer": {
+            "call": "installSupervisor"
+        },
 		"procedures": [{
 				"id": "installSupervisor",
 				"onCall": [{
