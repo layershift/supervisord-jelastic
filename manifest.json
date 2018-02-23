@@ -10,7 +10,7 @@
 			"nodeType": ["apache2", "nginxphp", "apache", "nginx-ruby", "apache2-ruby","nginxphp-dockerized"]
 		},
 		"homepage": "http://supervisord.org/",
-		"logo": "http://jps.layershift.com/supervisord/supervisor.png",
+		"logo": "https://github.com/layershift/supervisord-jelastic/raw/master/supervisor.png",
 		"description": {
 			"en": "Supervisord starts processes as its subprocesses, and can be configured to automatically restart them on a crash. It can also automatically be configured to start processes on its own invocation."
 		},
