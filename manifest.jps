@@ -13,8 +13,7 @@
 						"values": [
 							{
 							  "caption": "latest",
-							  "value": "latest",
-							  "selected": true
+							  "value": "latest"
 							},
 							{
 								"caption": "3.1.3",
