@@ -60,7 +60,7 @@
 										"echo ${settings.supervisorVersion}",
 										"if [ -f /etc/yum.repos.d/mod-pagespeed.repo ]; then sed -i \"s/enabled=1/enabled=0/g\"; else echo \"n\" > /root/installation; fi",
 										"yum install --nogpgcheck -q -y python-pip 2>&1",
-										"if [ \"${settings.supervisorVersion}\" == \"latest\" ]; then pip install supervisor 2>&1; else pip install supervisor==${settings.supervisorVersion} 2>&1; fi"
+										"if [ \"${settings.supervisorVersion}\" == \"latest\" ]; then pip install --trusted-host pypi.python.org --trusted-host pypi.org --trusted-host files.pythonhosted.org supervisor 2>&1; else pip install supervisor==${settings.supervisorVersion} 2>&1; fi"
 								]
 							}
 						]
